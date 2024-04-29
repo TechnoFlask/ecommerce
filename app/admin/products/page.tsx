@@ -1,9 +1,9 @@
 import { Button } from "@/components/ui/button"
-import AdminHeader from "../_Components/AdminHeader"
+import AdminHeader from "../_components/AdminHeader"
 import ProductsTable from "./productsTable"
 import Link from "next/link"
 import db from "@/lib/prisma"
-import { dollarToINR } from "@/lib/formatter"
+import { centsToINR } from "@/lib/formatter"
 
 async function getProductsData() {
   const data = await db.product.findMany({
@@ -11,18 +11,18 @@ async function getProductsData() {
       id: true,
       name: true,
       priceInCents: true,
-      orders: {
-        select: {
-          id: true,
-        },
-      },
+      purchasable: true,
+      _count: { select: { orders: true } },
     },
+    orderBy: { name: "asc" },
   })
-  return data.map(({ id, name, orders, priceInCents }) => ({
-    id,
-    name,
-    price: dollarToINR(priceInCents / 100),
-    orders: orders.length,
+
+  return data.map((prod) => ({
+    id: prod.id,
+    purchasable: prod.purchasable,
+    name: prod.name,
+    price: Math.ceil(centsToINR(prod.priceInCents)),
+    orders: prod._count.orders,
   }))
 }
 
