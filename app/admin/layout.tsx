@@ -12,7 +12,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
         <Navlink href="/admin/customers">Customers</Navlink>
         <Navlink href="/admin/orders">Orders</Navlink>
       </Navbar>
-      <div className="container my-8">{children}</div>
+      <div className="container my-8 mx-auto">{children}</div>
     </>
   )
 }
