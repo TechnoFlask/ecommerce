@@ -5,7 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { formatCurrency, formatNumber } from "@/lib/formatter"
+import { dollarToINR, formatCurrency, formatNumber } from "@/lib/formatter"
 import db from "@/lib/prisma"
 
 async function getSalesData() {
@@ -13,10 +13,9 @@ async function getSalesData() {
     _sum: { pricePaidInCents: true },
     _count: true,
   })
-  const dollarToRupee = 84
   return {
     totalUnits: _count,
-    totalSales: ((_sum.pricePaidInCents || 0) / 100) * dollarToRupee,
+    totalSales: dollarToINR((_sum.pricePaidInCents || 0) / 100),
   }
 }
 
@@ -33,7 +32,9 @@ async function getCustomersData() {
     averageCustomerValue:
       customerCount === 0
         ? 0
-        : (orderSum._avg.pricePaidInCents || 0) / 100 / customerCount,
+        : dollarToINR(
+            (orderSum._avg.pricePaidInCents || 0) / 100 / customerCount
+          ),
   }
 }
 
