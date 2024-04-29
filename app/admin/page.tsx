@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/card"
 import { dollarToINR, formatCurrency, formatNumber } from "@/lib/formatter"
 import db from "@/lib/prisma"
+import AdminHeader from "./_Components/AdminHeader"
 
 async function getSalesData() {
   const { _count, _sum } = await db.order.aggregate({
@@ -54,7 +55,7 @@ export default async function AdminPage() {
   ])
   return (
     <>
-      <h1 className="text-3xl mb-8">Admin Dashboard</h1>
+      <AdminHeader>Admin Dashboard</AdminHeader>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <AdminDashboardCard
           title="Sales"
