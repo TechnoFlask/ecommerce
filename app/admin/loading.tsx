@@ -2,7 +2,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 
 export default function AdminDashboardLoading() {
   return (
-    <div className="mt-28 flex justify-between">
+    <div className="mt-28 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       <SkeletonCard />
       <SkeletonCard />
       <SkeletonCard />

@@ -5,8 +5,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { dollarToINR, formatCurrency, formatNumber } from "@/lib/formatter"
+import { centsToINR, formatCurrency, formatNumber } from "@/lib/formatter"
 import db from "@/lib/prisma"
+import AdminHeader from "./_components/AdminHeader"
 
 async function getSalesData() {
   const { _count, _sum } = await db.order.aggregate({
@@ -15,7 +16,7 @@ async function getSalesData() {
   })
   return {
     totalUnits: _count,
-    totalSales: dollarToINR((_sum.pricePaidInCents || 0) / 100),
+    totalSales: centsToINR(_sum.pricePaidInCents || 0),
   }
 }
 
@@ -32,9 +33,7 @@ async function getCustomersData() {
     averageCustomerValue:
       customerCount === 0
         ? 0
-        : dollarToINR(
-            (orderSum._avg.pricePaidInCents || 0) / 100 / customerCount
-          ),
+        : centsToINR((orderSum._avg.pricePaidInCents || 0) / customerCount),
   }
 }
 
@@ -54,7 +53,7 @@ export default async function AdminPage() {
   ])
   return (
     <>
-      <h1 className="text-3xl mb-8">Admin Dashboard</h1>
+      <AdminHeader>Admin Dashboard</AdminHeader>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <AdminDashboardCard
           title="Sales"

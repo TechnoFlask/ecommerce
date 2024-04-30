@@ -16,12 +16,13 @@ datasource db {
 model Product {
   id           String         @id @default(uuid())
   name         String
+  description  String
   priceInCents Int
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @updatedAt
   filePath     String
   imagePath    String
-  purchasable  Boolean        @default(true)
+  purchasable  Boolean        @default(false)
   orders       Order[]
   Verification Verification[]
 }
