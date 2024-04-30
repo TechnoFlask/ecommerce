@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button"
 import AdminHeader from "../_components/AdminHeader"
-import ProductsTable from "./productsTable"
+import ProductsTable from "./_components/productsTable"
 import Link from "next/link"
 import db from "@/lib/prisma"
 import { centsToINR } from "@/lib/formatter"

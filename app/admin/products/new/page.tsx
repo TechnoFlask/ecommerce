@@ -1,11 +1,11 @@
 import AdminHeader from "../../_components/AdminHeader"
-import AdminAddProductForm from "./addProductForm"
+import AdminProductForm from "../_components/productForm"
 
 export default function AdminNewProductPage() {
   return (
     <>
       <AdminHeader>Add Product</AdminHeader>
-      <AdminAddProductForm />
+      <AdminProductForm prod={null} />
     </>
   )
 }

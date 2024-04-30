@@ -22,7 +22,7 @@ model Product {
   updatedAt    DateTime       @updatedAt
   filePath     String
   imagePath    String
-  purchasable  Boolean        @default(true)
+  purchasable  Boolean        @default(false)
   orders       Order[]
   Verification Verification[]
 }
