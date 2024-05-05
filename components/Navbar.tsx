@@ -4,11 +4,14 @@ import { cn } from "@/lib/utils"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { ComponentProps, ReactNode } from "react"
+import { ModeToggle } from "./modeToggle"
 
 export default function Navbar({ children }: { children: ReactNode }) {
   return (
-    <nav className="bg-primary text-primary-foreground flex justify-center">
-      {children}
+    <nav className="bg-primary text-primary-foreground flex justify-around items-center">
+      <div></div>
+      <div className="flex justify-center">{children}</div>
+      <ModeToggle />
     </nav>
   )
 }
