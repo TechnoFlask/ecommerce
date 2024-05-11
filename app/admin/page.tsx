@@ -72,7 +72,7 @@ export default async function AdminPage() {
           subtitle={`${formatNumber(
             productsData.inactiveProductCount
           )} Inactive`}
-          content={formatNumber(productsData.activeProductCount)}
+          content={`${formatNumber(productsData.activeProductCount)} Active`}
         />
       </div>
     </>

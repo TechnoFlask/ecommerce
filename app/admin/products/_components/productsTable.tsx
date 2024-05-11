@@ -2,6 +2,7 @@
 
 import { formatCurrency, formatNumber } from "@/lib/formatter"
 import {
+  ArrowDownUp,
   ArrowUpDown,
   CheckCircle2,
   MoreHorizontal,
@@ -22,7 +23,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
-import { ColumnDef } from "@tanstack/react-table"
+import { Column, ColumnDef } from "@tanstack/react-table"
+import { useState } from "react"
 
 type Product = {
   id: string
@@ -30,6 +32,27 @@ type Product = {
   name: string
   price: number
   orders: number
+}
+
+function PriceHeader({ column }: { column: Column<Product, unknown> }) {
+  const [toggled, setToggled] = useState<boolean>(false)
+  return (
+    <Button
+      variant="ghost"
+      onClick={() => {
+        column.toggleSorting(column.getIsSorted() === "asc")
+        setToggled((prev) => !prev)
+      }}
+      className="pl-0 hover:bg-transparent"
+    >
+      <div className="text-xl">Price</div>
+      {toggled ? (
+        <ArrowDownUp className="ml-2 h-4 w-4" />
+      ) : (
+        <ArrowUpDown className="ml-2 h-4 w-4" />
+      )}
+    </Button>
+  )
 }
 
 const columns: Array<ColumnDef<Product>> = [
@@ -60,16 +83,7 @@ const columns: Array<ColumnDef<Product>> = [
   },
   {
     accessorKey: "price",
-    header: ({ column }) => (
-      <Button
-        variant="ghost"
-        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        className="pl-0 hover:bg-transparent"
-      >
-        <div className="text-xl">Price</div>
-        <ArrowUpDown className="ml-2 h-4 w-4" />
-      </Button>
-    ),
+    header: ({ column }) => <PriceHeader column={column} />,
     cell: ({ row }) => (
       <div className="text-lg">{formatCurrency(row.original.price)}</div>
     ),
