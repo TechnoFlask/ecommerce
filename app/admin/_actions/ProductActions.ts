@@ -120,7 +120,7 @@ export async function toggleProductPurchasableStatus(
   })
 }
 
-export async function deleteProduct(id: string) {
+export async function adminDeleteProduct(id: string) {
   const productPaths = await db.product.findUnique({
     where: { id },
     select: { filePath: true, imagePath: true },

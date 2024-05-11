@@ -3,7 +3,7 @@
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu"
 import { useTransition } from "react"
 import {
-  deleteProduct,
+  adminDeleteProduct,
   toggleProductPurchasableStatus,
 } from "../../_actions/ProductActions"
 import { useRouter } from "next/navigation"
@@ -48,7 +48,7 @@ export function DropdownDeleteProduct({
       className="hover:bg-destructive hover:text-destructive-foreground"
       onClick={() => {
         startTransition(async () => {
-          await deleteProduct(id)
+          await adminDeleteProduct(id)
           refresh()
         })
       }}
