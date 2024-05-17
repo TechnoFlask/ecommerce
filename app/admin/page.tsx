@@ -22,7 +22,7 @@ async function getSalesData() {
 
 async function getCustomersData() {
   const [customerCount, orderSum] = await Promise.all([
-    await db.customer.count(),
+    db.customer.count(),
     db.order.aggregate({
       _avg: { pricePaidInCents: true },
     }),
